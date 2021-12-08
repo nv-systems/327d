@@ -1,0 +1,10 @@
+version: '2'
+volumes:
+  settings:
+
+services:
+  www:
+    build: ./www
+    network_mode: host
+    ports:
+      - 80:80
