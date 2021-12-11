@@ -726,7 +726,9 @@ abstract class FieldClass
 
         ksort($props);
 
-        return array_filter($props, fn ($item) => $item !== null);
+        return array_filter($props, function ($item) {
+            return $item !== null;
+        });
     }
 
     /**

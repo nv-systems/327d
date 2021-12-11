@@ -121,14 +121,13 @@ return function (App $app) {
                 return null;
             }
 
-            if (empty($field->value) === false) {
-                $time = $field->toTimestamp();
-            } else {
-                $time = strtotime($fallback);
+            $time = empty($field->value) === true ? strtotime($fallback) : $field->toTimestamp();
+
+            if ($format === null) {
+                return $time;
             }
 
-            $handler = $app->option('date.handler', 'date');
-            return Str::date($time, $format, $handler);
+            return ($app->option('date.handler', 'date'))($format, $time);
         },
 
         /**
@@ -385,7 +384,7 @@ return function (App $app) {
             // Obsolete elements, script tags, image maps and form elements have
             // been excluded for safety reasons and as they are most likely not
             // needed in most cases.
-            $field->value = strip_tags($field->value, Html::$inlineList);
+            $field->value = strip_tags($field->value, '<b><i><small><abbr><cite><code><dfn><em><kbd><strong><samp><var><a><bdo><br><img><q><span><sub><sup>');
             return $field;
         },
 

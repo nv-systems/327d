@@ -92,9 +92,6 @@ class Server
      */
     public static function sanitize(string $key, $value)
     {
-        // make sure $value is not null
-        $value ??= '';
-
         switch ($key) {
             case 'SERVER_ADDR':
             case 'SERVER_NAME':
@@ -103,7 +100,7 @@ class Server
                 $value = strip_tags($value);
                 $value = preg_replace('![^\w.:-]+!iu', '', $value);
                 $value = trim($value, '-');
-                $value = htmlspecialchars($value, ENT_COMPAT);
+                $value = htmlspecialchars($value);
                 break;
             case 'SERVER_PORT':
             case 'HTTP_X_FORWARDED_PORT':

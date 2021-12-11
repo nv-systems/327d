@@ -203,10 +203,9 @@ trait FileModifications
 
         if (
             is_a($result, 'Kirby\Cms\FileVersion') === false &&
-            is_a($result, 'Kirby\Cms\File') === false &&
-            is_a($result, 'Kirby\Filesystem\Asset') === false
+            is_a($result, 'Kirby\Cms\File') === false
         ) {
-            throw new InvalidArgumentException('The file::version component must return a File, FileVersion or Asset object');
+            throw new InvalidArgumentException('The file::version component must return a File or FileVersion object');
         }
 
         return $result;

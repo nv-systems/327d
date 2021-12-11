@@ -37,7 +37,7 @@ return [
                     'plugins' => $plugins,
                     'php'     => phpversion(),
                     'server'  => $system->serverSoftware(),
-                    'https'   => Server::https(),
+                    'ssl'     => Server::https(),
                     'version' => $kirby->version(),
                 ]
             ];

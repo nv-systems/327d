@@ -5,7 +5,6 @@ namespace Kirby\Filesystem;
 use Exception;
 use Kirby\Cms\App;
 use Kirby\Cms\Page;
-use Kirby\Toolkit\Str;
 use Throwable;
 
 /**
@@ -451,7 +450,7 @@ class Dir
             $modified = ($newModified > $modified) ? $newModified : $modified;
         }
 
-        return Str::date($modified, $format, $handler);
+        return $format !== null ? $handler($format, $modified) : $modified;
     }
 
     /**
@@ -505,8 +504,8 @@ class Dir
         }
 
         // create the ignore pattern
-        $ignore ??= static::$ignore;
-        $ignore   = array_merge($ignore, ['.', '..']);
+        $ignore = $ignore ?? static::$ignore;
+        $ignore = array_merge($ignore, ['.', '..']);
 
         // scan for all files and dirs
         $result = array_values((array)array_diff(scandir($dir), $ignore));

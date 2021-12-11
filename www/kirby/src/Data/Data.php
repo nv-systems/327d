@@ -65,7 +65,7 @@ class Data
                    static::$handlers[static::$aliases[$type] ?? null] ??
                    null;
 
-        if ($handler !== null && class_exists($handler)) {
+        if (class_exists($handler)) {
             return new $handler();
         }
 

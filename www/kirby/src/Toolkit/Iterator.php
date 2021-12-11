@@ -40,7 +40,7 @@ class Iterator implements IteratorAggregate
      *
      * @return \ArrayIterator
      */
-    public function getIterator(): ArrayIterator
+    public function getIterator()
     {
         return new ArrayIterator($this->data);
     }

@@ -17,7 +17,7 @@
 
   <title>Kirby Panel</title>
 
-  <script nonce="<?= $nonce ?>">
+  <script>
     if (
         !window.CSS ||
         window.CSS.supports("display", "grid") === false ||

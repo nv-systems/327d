@@ -74,7 +74,7 @@ class Blueprint
         $props = $this->preset($props);
 
         // normalize the name
-        $props['name'] ??= 'default';
+        $props['name'] = $props['name'] ?? 'default';
 
         // normalize and translate the title
         $props['title'] = $this->i18n($props['title'] ?? ucfirst($props['name']));
@@ -337,7 +337,7 @@ class Blueprint
 
         $normalize = function ($props) use ($name) {
             // inject the filename as name if no name is set
-            $props['name'] ??= $name;
+            $props['name'] = $props['name'] ?? $name;
 
             // normalize the title
             $title = $props['title'] ?? ucfirst($props['name']);
@@ -567,7 +567,9 @@ class Blueprint
 
         // set all options to false
         if ($options === false) {
-            return array_map(fn () => false, $defaults);
+            return array_map(function () {
+                return false;
+            }, $defaults);
         }
 
         // extend options if possible
@@ -577,7 +579,7 @@ class Blueprint
             $alias = $aliases[$key] ?? null;
 
             if ($alias !== null) {
-                $options[$alias] ??= $value;
+                $options[$alias] = $options[$alias] ?? $value;
                 unset($options[$key]);
             }
         }
@@ -763,10 +765,9 @@ class Blueprint
      */
     public function sections(): array
     {
-        return A::map(
-            $this->sections,
-            fn ($section) => $this->section($section['name'])
-        );
+        return array_map(function ($section) {
+            return $this->section($section['name']);
+        }, $this->sections);
     }
 
     /**

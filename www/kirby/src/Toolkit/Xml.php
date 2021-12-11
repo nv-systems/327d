@@ -106,10 +106,9 @@ class Xml
             if (isset($value['value'], $value['escape'])) {
                 $value = $value['escape'] === true ? static::encode($value['value']) : $value['value'];
             } else {
-                $value = implode(' ', array_filter(
-                    $value,
-                    fn ($value) => !empty($value) || is_numeric($value)
-                ));
+                $value = implode(' ', array_filter($value, function ($value) {
+                    return !empty($value) || is_numeric($value);
+                }));
             }
         } else {
             $value = static::encode($value);
@@ -421,8 +420,7 @@ class Xml
             return $value;
         }
 
-        // TODO: in 3.7.0 use ENT_NOQUOTES | ENT_XML1 instead
-        $encoded = htmlentities($value, ENT_COMPAT);
+        $encoded = htmlentities($value);
         if ($encoded === $value) {
             // no CDATA block needed
             return $value;

@@ -3,7 +3,6 @@
 namespace Kirby\Cms;
 
 use Closure;
-use Kirby\Toolkit\A;
 use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\Str;
 
@@ -43,7 +42,7 @@ class Fieldsets extends Items
             $fieldset = Blueprint::extend($fieldset);
 
             // make sure the type is always set
-            $fieldset['type'] ??= $type;
+            $fieldset['type'] = $fieldset['type'] ?? $type;
 
             // extract groups
             if ($fieldset['type'] === 'group') {
@@ -70,7 +69,7 @@ class Fieldsets extends Items
 
     public static function factory(array $items = null, array $params = [])
     {
-        $items ??= option('blocks.fieldsets', [
+        $items = $items ?? option('blocks.fieldsets', [
             'code'     => 'blocks/code',
             'gallery'  => 'blocks/gallery',
             'heading'  => 'blocks/heading',
@@ -95,9 +94,8 @@ class Fieldsets extends Items
 
     public function toArray(?Closure $map = null): array
     {
-        return A::map(
-            $this->data,
-            $map ?? fn ($fieldset) => $fieldset->toArray()
-        );
+        return array_map($map ?? function ($fieldset) {
+            return $fieldset->toArray();
+        }, $this->data);
     }
 }

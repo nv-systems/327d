@@ -98,7 +98,10 @@ function csrf(?string $check = null)
 function css($url, $options = null): ?string
 {
     if (is_array($url) === true) {
-        $links = A::map($url, fn ($url) => css($url, $options));
+        $links = array_map(function ($url) use ($options) {
+            return css($url, $options);
+        }, $url);
+
         return implode(PHP_EOL, $links);
     }
 
@@ -370,7 +373,10 @@ function invalid(array $data = [], array $rules = [], array $messages = []): arr
 function js($url, $options = null): ?string
 {
     if (is_array($url) === true) {
-        $scripts = A::map($url, fn ($url) => js($url, $options));
+        $scripts = array_map(function ($url) use ($options) {
+            return js($url, $options);
+        }, $url);
+
         return implode(PHP_EOL, $scripts);
     }
 
@@ -578,7 +584,7 @@ function page(...$id)
  */
 function pages(...$id)
 {
-    if (count($id) === 1 && is_array($id[0]) === false) {
+    if (count($id) === 1) {
         // @codeCoverageIgnoreStart
         deprecated('Passing a single id to the `pages()` helper will return a Kirby\Cms\Pages collection with a single element instead of the single Kirby\Cms\Page object itself - starting in 3.7.0.');
         // @codeCoverageIgnoreEnd
