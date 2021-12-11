@@ -38,8 +38,8 @@ RUN rm /var/www/html/*
 
 # Clone the Kirby nvkit
 RUN git clone --depth 1 https://github.com/nv-systems/327d.git /opt/327d
-RUN rm /opt/327d/www/Dockerfile
-RUN mv /opt/327d/www/* /var/www/html
+RUN rm /opt/327d/html/Dockerfile
+RUN mv /opt/327d/html/* /var/www/html
 
 # Fix files and directories ownership
 RUN chown -R www-data:www-data /var/www/html/
