@@ -37,9 +37,9 @@ COPY default.conf /etc/apache2/sites-available/000-default.conf
 RUN rm /var/www/html/*
 
 # Clone the Kirby nvkit
-RUN git clone --depth 1 https://github.com/nv-systems/327d.git /opt/327d
-RUN rm /opt/327d/html/Dockerfile
-RUN mv /opt/327d/html/* /var/www/html
+RUN wget https://github.com/nv-systems/327d/archive/refs/heads/main.zip /opt/327d
+RUN cp -r /opt/327d/html/* /var/www/html
+
 
 # Fix files and directories ownership
 RUN chown -R www-data:www-data /var/www/html/
