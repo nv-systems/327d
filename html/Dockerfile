@@ -43,6 +43,7 @@ RUN mv /opt/327d/html/* /var/www/html
 
 # Fix files and directories ownership
 RUN chown -R www-data:www-data /var/www/html/
+RUN chmod -R 755 /var/www
 
 # Activate Apache modules headers & rewrite
 RUN a2enmod headers rewrite
