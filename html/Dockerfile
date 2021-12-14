@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   php-json \
   php-mbstring \
   nano \
+  wget \ 
   php-xml \
   php-zip && \
   apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -37,7 +38,8 @@ COPY default.conf /etc/apache2/sites-available/000-default.conf
 RUN rm /var/www/html/*
 
 # Clone the Kirby nvkit
-RUN wget https://github.com/nv-systems/327d/archive/refs/heads/main.zip /opt/327d
+RUN wget https://github.com/nv-systems/327d/archive/refs/heads/main.tar.gz /opt/327d
+RUN tar -xf main.tar.gz
 RUN cp -r /opt/327d/html/* /var/www/html
 
 
